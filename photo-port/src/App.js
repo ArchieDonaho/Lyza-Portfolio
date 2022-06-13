@@ -1,22 +1,19 @@
+import React from 'react';
 import './App.css';
+import About from './components/About'; // import our component
+import Nav from './components/Nav'; // import our component
 
 function App() {
+  /*
+  What happens behind the scenes:
+  React.createElement('div', {}, [ React.createElement('h1',{}, 'ginger'), React.createElement('p', {}, 'breed: Brittany Spaniel') ])
+  */
   return (
-    <div className='App'>
-      <header className='App-header'>
-        <img src={logo} className='App-logo' alt='logo' />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className='App-link'
-          href='https://reactjs.org'
-          target='_blank'
-          rel='noopener noreferrer'
-        >
-          Learn React
-        </a>
-      </header>
+    <div>
+      <Nav></Nav> {/* use our Nav function that was imported */}
+      <main>
+        <About></About> {/* use our About function that was imported */}
+      </main>
     </div>
   );
 }

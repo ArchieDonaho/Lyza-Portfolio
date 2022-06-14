@@ -1,18 +1,45 @@
-import React from 'react';
+import React, { useState } from 'react';
 import './App.css';
-import About from './components/About'; // import our component
-import Nav from './components/Nav'; // import our component
+// import our components
+import About from './components/About';
+import Nav from './components/Nav';
+import Gallery from './components/Gallery';
 
 function App() {
   /*
   What happens behind the scenes:
   React.createElement('div', {}, [ React.createElement('h1',{}, 'ginger'), React.createElement('p', {}, 'breed: Brittany Spaniel') ])
   */
+  // create an object array of the categories. Creating a useState with no setter offers no advantages
+  const [categories] = useState([
+    {
+      name: 'commercial',
+      description:
+        'Photos of grocery stores, food trucks, and other commercial projects',
+    },
+    {
+      name: 'portraits',
+      description: 'Portraits of people in my life',
+    },
+    {
+      name: 'landscape',
+      description: 'Fields, farmhouses, waterfalls, and the beauty of nature',
+    },
+  ]);
+
+  // using state, set the current category to 'commercial'
+  const [currentCategory, setCurrentCategory] = useState(categories[0]);
+
   return (
     <div>
-      <Nav></Nav> {/* use our Nav function that was imported */}
+      <Nav
+        categories={categories}
+        setCurrentCategory={setCurrentCategory}
+        currentCategory={currentCategory}
+      ></Nav>
       <main>
-        <About></About> {/* use our About function that was imported */}
+        <Gallery currentCategory={currentCategory}></Gallery>
+        <About></About>
       </main>
     </div>
   );

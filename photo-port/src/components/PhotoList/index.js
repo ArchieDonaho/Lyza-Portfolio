@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import Modal from '../Modal';
 
 function PhotoList({ category }) {
   // initialize array of photos
@@ -122,8 +123,26 @@ function PhotoList({ category }) {
   // filter the array to get photos containing the current category
   const currentPhotos = photos.filter((photo) => photo.category === category);
 
+  // set up photo state for the modal
+  const [currentPhoto, setCurrentPhoto] = useState();
+
+  // set up modal state, initialize it to be closed
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // handle the modal
+  const toggleModal = (image, i) => {
+    // set the current photo to the image with an index of i
+    setCurrentPhoto({ ...image, index: i });
+    // close the modal if it is open, and open it if it is closed
+    setIsModalOpen(!isModalOpen);
+  };
+
   return (
     <div>
+      {/* create a modal using the current photo set in the state if the state is set to true */}
+      {isModalOpen && (
+        <Modal currentPhoto={currentPhoto} onClose={toggleModal} />
+      )}
       <div className='flex-row'>
         {currentPhotos.map((image, i) => (
           <img
@@ -131,6 +150,7 @@ function PhotoList({ category }) {
             alt={`${image.name}`}
             className='img-thumbnail mx-1'
             key={image.name} // key is a special string attribute that's needed when creating list of elements. They help react identify which items have changed, added, or removed
+            onClick={() => toggleModal(image, i)} // pass through the current image object and the image index number to render it
           />
         ))}
       </div>

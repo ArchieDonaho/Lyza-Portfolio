@@ -9,7 +9,7 @@ function Gallery({ currentCategory }) {
     <section>
       <h1>{capitalizeFirstLetter(name)}</h1>
       <p>{description}</p>
-      <PhotoList category={currentCategory.name} />{' '}
+      <PhotoList category={currentCategory.name} />
       {/* pass the current category's name to be used to display specific images */}
     </section>
   );

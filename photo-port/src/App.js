@@ -4,12 +4,17 @@ import './App.css';
 import About from './components/About';
 import Nav from './components/Nav';
 import Gallery from './components/Gallery';
+import ContactForm from './components/Contact';
 
 function App() {
   /*
   What happens behind the scenes:
   React.createElement('div', {}, [ React.createElement('h1',{}, 'ginger'), React.createElement('p', {}, 'breed: Brittany Spaniel') ])
   */
+
+  // initialize the state for the contact form to false
+  const [contactSelected, setContactSelected] = useState(false);
+
   // create an object array of the categories. Creating a useState with no setter offers no advantages
   const [categories] = useState([
     {
@@ -36,10 +41,21 @@ function App() {
         categories={categories}
         setCurrentCategory={setCurrentCategory}
         currentCategory={currentCategory}
+        // pass through the getter & setter to the Nav component to allow it to modify the state in the App component
+        contactSelected={contactSelected}
+        setContactSelected={setContactSelected}
       ></Nav>
       <main>
-        <Gallery currentCategory={currentCategory}></Gallery>
-        <About></About>
+        {/* equates to an "if-else" statement (ternary operator) */}
+        {!contactSelected ? (
+          // "<></>" are React fragments (<React.Fragment></React.Fragment>). Normally, only 1 parent can be returned, but this allows multiple to be grouped together w/o using a div
+          <>
+            <Gallery currentCategory={currentCategory}></Gallery>
+            <About></About>
+          </>
+        ) : (
+          <ContactForm></ContactForm>
+        )}
       </main>
     </div>
   );
